@@ -1,7 +1,6 @@
 #ifndef NODE_H
 #define NODE_H
-
-
+//Quick comment for commit
 
 struct Node {
     explicit Node(int data);
@@ -10,7 +9,5 @@ struct Node {
     Node* leftChild;
     Node* rightChild;
 };
-
-
 
 #endif //NODE_H

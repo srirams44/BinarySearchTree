@@ -1,48 +1,61 @@
 #include <iostream>
-#include "node.h"
-#include "bst.h"
 #include <fstream>
 #include <cstring>
+#include "node.h"
+#include "bst.h"
+//Quick comment for commit
+
 using namespace std;
 
 int main() {
-    //Create a binary tree
+    BST myBST; // Binary search tree
     while (true) {
         char input[100] = "";
-        cout << "What would you like to do?(ADD/DELETE/SEARCH/PRINT/QUIT): ";
+        cout << "What would you like to do? (ADD/DELETE/SEARCH/PRINT/QUIT): ";
         cin.getline(input, 100);
+
         if (strcasecmp(input, "ADD") == 0) {
-            memset(input, 0, sizeof(input)); //Clears the input array
-            cout << "Read in manually or with file?(FILE/MAN): ";
+            memset(input, 0, sizeof(input)); // Clears input array
+            cout << "Read in manually or with file? (FILE/MAN): ";
             cin.getline(input, 100);
-            if (strcasecmp(input, "File") == 0) {
-                cin.getline(input, 100);
-                ifstream file("numbers.txt");
+
+            if (strcasecmp(input, "FILE") == 0) {
+                ifstream file("C:/Users/srira/Desktop/C++/BinarySearchTree/numbers.txt");
+                if (!file) {
+                    cout << "Error opening file numbers.txt" << endl;
+                    continue;
+                }
                 int num;
                 while (file >> num) {
-                    //add function
+                    myBST.add(num);
                 }
+                cout << "Numbers added from file successfully." << endl;
             }
-            else if (strcasecmp(input, "Man") == 0 or strcasecmp(input, "Manual") == 0) {
-                cout << "Enter numbers between 1 and 999 seperated by spaces." << endl;
+            else if (strcasecmp(input, "MAN") == 0) {
+                cout << "Enter numbers between 1 and 999 separated by spaces: ";
                 int num;
-                while (cin >> num) {
-                    //add function
-                    if (cin.peek() == '\n') { //If next number is a newline, break
-                        break;
-                    }
+                cin >> num;
+                myBST.add(num);
+
+                while (cin.peek() != '\n' && cin >> num) {
+                    myBST.add(num);
                 }
-                cin.ignore();
+                cin.ignore(1000, '\n'); // Clear any remaining input
+                cout << "Numbers added manually successfully." << endl;
             }
         }
         else if (strcasecmp(input, "DELETE") == 0) {
-            //Run the delete function
+            // Run the delete function
         }
         else if (strcasecmp(input, "SEARCH") == 0) {
-            //Run the search function
+            // Run the search function
+            int num;
+            cout << "Please enter value you are looking for: ";
+            cin >> num;
+            myBST.search(num);
         }
         else if (strcasecmp(input, "PRINT") == 0) {
-            //Run the print function
+            myBST.print();
         }
         else if (strcasecmp(input, "QUIT") == 0) {
             return 0;
