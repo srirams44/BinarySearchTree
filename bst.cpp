@@ -97,3 +97,55 @@ void BST::searchHelper(Node* node, int value) {
  searchHelper(node->leftChild, value);
  }
 }
+
+Node* BST::findMin(Node* node) { //find the smallest node in the right subtree
+ while (node->leftChild != nullptr) {
+  node = node->leftChild;
+ }
+ return node;
+}
+
+void BST::deleteValue(int value) {
+ if (!root) {
+  cout << "Nothing to delete." << endl;
+  return;
+ }
+  root = deleteHelper(root, value);
+}
+
+Node* BST::deleteHelper(Node* node, int value) {
+ if (!node) { //base case, if node is not found
+  cout << "Node not found." << endl;
+  return nullptr;
+ }
+ if (value < node->data) { //if value is less, go left
+  node->leftChild = deleteHelper(node->leftChild, value);
+ }
+ else if (value > node->data) { //if value is greater, go right
+  node->rightChild = deleteHelper(node->rightChild, value);
+ }
+ else { //if value is equal to current nodes data, we now need to worry about the cases of deletion
+  //case 1 - node has no children
+  if (node->leftChild == nullptr  and node->rightChild == nullptr) {
+   delete node;
+   return nullptr;
+  }
+  //case 2 - node has only one child
+  else if (node->leftChild == nullptr) {
+   Node* temp = node->rightChild;
+   delete node;
+   return temp;
+  }
+  else if (node->rightChild == nullptr) {
+   Node* temp = node->leftChild;
+   delete node;
+   return temp;
+  }
+  else { //case 3 - node has 2 children
+   Node* successor = findMin(node->rightChild); //find succesor
+   node->data = successor->data; //copy successor value
+   node->rightChild = deleteHelper(node->rightChild, successor->data); //delete succesor
+  }
+ }
+ return node; //return updated subtree
+}

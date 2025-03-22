@@ -20,8 +20,8 @@ int main() {
             cin.getline(input, 100);
 
             if (strcasecmp(input, "FILE") == 0) {
-                ifstream file("C:/Users/srira/Desktop/C++/BinarySearchTree/numbers.txt");
-                if (!file) {
+                ifstream file("numbers.txt.txt");
+                if (!file.is_open()) {
                     cout << "Error opening file numbers.txt" << endl;
                     continue;
                 }
@@ -29,6 +29,7 @@ int main() {
                 while (file >> num) {
                     myBST.add(num);
                 }
+                //cin.ignore(1000, '\n');
                 cout << "Numbers added from file successfully." << endl;
             }
             else if (strcasecmp(input, "MAN") == 0) {
@@ -36,7 +37,6 @@ int main() {
                 int num;
                 cin >> num;
                 myBST.add(num);
-
                 while (cin.peek() != '\n' && cin >> num) {
                     myBST.add(num);
                 }
@@ -46,6 +46,12 @@ int main() {
         }
         else if (strcasecmp(input, "DELETE") == 0) {
             // Run the delete function
+            int num;
+            cout << "Please enter what value to delete: ";
+            cin >> num;
+            myBST.deleteValue(num);
+            //cin.ignore(1000, '\n');
+
         }
         else if (strcasecmp(input, "SEARCH") == 0) {
             // Run the search function
@@ -53,6 +59,7 @@ int main() {
             cout << "Please enter value you are looking for: ";
             cin >> num;
             myBST.search(num);
+            //cin.ignore(1000, '\n');
         }
         else if (strcasecmp(input, "PRINT") == 0) {
             myBST.print();

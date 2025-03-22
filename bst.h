@@ -12,11 +12,14 @@ public:
     void print();
     void add(int value);
     void search(int value);
+    void deleteValue(int valuez);
 private:
     Node* root;
     void printHelper(Node* node, int level);
     Node* addHelper(Node* node, int value);
     void searchHelper(Node* node, int value);
+    Node* deleteHelper(Node* node, int value);
+    Node* findMin(Node* node);
 
 };
 

@@ -8,6 +8,7 @@ struct Node {
     int data;
     Node* leftChild;
     Node* rightChild;
+    Node* parent{};
 };
 
 #endif //NODE_H
